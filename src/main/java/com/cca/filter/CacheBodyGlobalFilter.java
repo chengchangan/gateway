@@ -34,7 +34,7 @@ public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
                         ServerHttpRequest mutatedRequest = new ServerHttpRequestDecorator(
                                 exchange.getRequest()) {
                             @Override
-                            public Flux getBody() {
+                            public Flux<DataBuffer> getBody() {
                                 return cachedFlux;
                             }
                         };
