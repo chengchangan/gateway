@@ -1,5 +1,6 @@
 package com.cca.filter;
 
+import com.cca.utils.RequestUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -33,7 +34,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
         ServerHttpRequest serverHttpRequest = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
-        String bodyStr = resolveBodyFromRequest(serverHttpRequest.getBody());
+        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
 
         if (bodyStr == null) {
             log.info("********** 鉴权失败 ************");
@@ -43,25 +44,8 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
             log.info("body：{}", bodyStr);
         }
         return chain.filter(exchange);
-
     }
 
-    /**
-     * 从Flux<DataBuffer>中获取字符串的方法
-     *
-     * @return 请求体
-     */
-    private String resolveBodyFromRequest(Flux<DataBuffer> body) {
-        //获取请求体
-
-        AtomicReference<String> bodyRef = new AtomicReference<>();
-        body.subscribe(buffer -> {
-            CharBuffer charBuffer = StandardCharsets.UTF_8.decode(buffer.asByteBuffer());
-            DataBufferUtils.release(buffer);
-            bodyRef.set(charBuffer.toString());
-        });
-        return bodyRef.get();
-    }
 
     @Override
     public int getOrder() {

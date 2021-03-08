@@ -29,10 +29,8 @@ public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
             return DataBufferUtils.join(exchange.getRequest().getBody())
                     .flatMap(dataBuffer -> {
                         DataBufferUtils.retain(dataBuffer);
-                        Flux<DataBuffer> cachedFlux = Flux
-                                .defer(() -> Flux.just(dataBuffer.slice(0, dataBuffer.readableByteCount())));
-                        ServerHttpRequest mutatedRequest = new ServerHttpRequestDecorator(
-                                exchange.getRequest()) {
+                        Flux<DataBuffer> cachedFlux = Flux.defer(() -> Flux.just(dataBuffer.slice(0, dataBuffer.readableByteCount())));
+                        ServerHttpRequest mutatedRequest = new ServerHttpRequestDecorator(exchange.getRequest()) {
                             @Override
                             public Flux<DataBuffer> getBody() {
                                 return cachedFlux;
