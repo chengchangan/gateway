@@ -29,6 +29,15 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>com.cca</groupId>
+            <artifactId>bean</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.cca</groupId>
+            <artifactId>web</artifactId>
+        </dependency>
     </dependencies>
 
 

@@ -2,6 +2,7 @@ package com.cca.utils;
 
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import reactor.core.publisher.Flux;
 
@@ -47,17 +48,23 @@ public class RequestUtil {
      * @return
      */
     public static String resolveBodyFromRequest(ServerHttpRequest serverHttpRequest) {
-        //获取请求体
-        Flux<DataBuffer> body = serverHttpRequest.getBody();
-        StringBuilder sb = new StringBuilder();
+        HttpMethod method = serverHttpRequest.getMethod();
+        if (method == HttpMethod.POST || method == HttpMethod.PUT) {
+            //获取请求体
+            Flux<DataBuffer> body = serverHttpRequest.getBody();
+            StringBuilder sb = new StringBuilder();
 
-        body.subscribe(buffer -> {
-            byte[] bytes = new byte[buffer.readableByteCount()];
-            buffer.read(bytes);
-            String bodyString = new String(bytes, StandardCharsets.UTF_8);
-            sb.append(bodyString);
-        });
-        return formatStr(sb.toString());
+            body.subscribe(buffer -> {
+                byte[] bytes = new byte[buffer.readableByteCount()];
+                buffer.read(bytes);
+                String bodyString = new String(bytes, StandardCharsets.UTF_8);
+                sb.append(bodyString);
+            });
+            return formatStr(sb.toString());
+        } else {
+            return null;
+        }
+
     }
 
 
