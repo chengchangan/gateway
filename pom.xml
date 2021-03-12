@@ -19,6 +19,7 @@
 
 
     <dependencies>
+
         <!--新增gateway-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -30,14 +31,32 @@
             <artifactId>spring-cloud-starter-openfeign</artifactId>
         </dependency>
 
+        <!-- sentinel 监控-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
+
+        <!-- 监控数据的持久化-->
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-datasource-nacos</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>com.cca</groupId>
             <artifactId>bean</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.cca</groupId>
-            <artifactId>web</artifactId>
+            <artifactId>core</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
+
+
+
+
     </dependencies>
 
 

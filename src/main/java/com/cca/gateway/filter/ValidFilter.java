@@ -1,8 +1,8 @@
-package com.cca.filter;
+package com.cca.gateway.filter;
 
 import com.cca.mode.response.Result;
-import com.cca.utils.RequestUtil;
-import com.cca.utils.ResponseUtil;
+import com.cca.gateway.utils.RequestUtil;
+import com.cca.gateway.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;

@@ -1,4 +1,4 @@
-package com.cca.utils;
+package com.cca.gateway.utils;
 
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;

@@ -1,4 +1,4 @@
-package com.cca.utils;
+package com.cca.gateway.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.cca.mode.response.Result;

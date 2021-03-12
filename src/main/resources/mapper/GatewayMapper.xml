@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.cca.gateway.dao.GatewayMapper">
+
+    <sql id="columns">id,uri,predicates,filters,text,reg_id,enabled,oauth2</sql>
+
+    <resultMap id="resultMap" type="com.cca.gateway.mode.domain.Gateway">
+        <id column="id" property="id"/>
+        <result column="uri" property="uri"/>
+        <result column="predicates" property="predicates"/>
+        <result column="filters" property="filters"/>
+        <result column="text" property="text"/>
+        <result column="reg_id" property="regId"/>
+        <result column="enabled" property="enabled"/>
+        <result column="oauth2" property="oauth2"/>
+    </resultMap>
+
+    <sql id="columnMapping">
+        id                AS id,
+        uri                AS uri,
+        predicates                AS predicates,
+        filters                AS filters,
+        text                AS text,
+        reg_id                AS regId,
+        enabled                AS enabled,
+        oauth2                AS oauth2
+    </sql>
+
+    <select id="getByKey" resultMap="resultMap">
+        SELECT
+        <choose>
+            <when test="fields!=null and fields!=''">
+                #{fields}
+            </when>
+            <otherwise>
+                <include refid="columns"/>
+            </otherwise>
+        </choose>
+        FROM gateway
+        <include refid="pkWhere"/>
+        LIMIT 1
+    </select>
+
+    <select id="list" resultMap="resultMap">
+        SELECT
+        <include refid="columns"/>
+        FROM gateway
+        <include refid="equalWhere"/>
+        ORDER BY id DESC
+    </select>
+
+
+
+    <sql id="equalWhere">
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="ew.id!=null">
+                AND id=#{ew.id}
+            </if>
+            <if test="ew.uri!=null and ew.uri!=''">
+                AND uri=#{ew.uri}
+            </if>
+            <if test="ew.predicates!=null and ew.predicates!=''">
+                AND predicates=#{ew.predicates}
+            </if>
+            <if test="ew.filters!=null and ew.filters!=''">
+                AND filters=#{ew.filters}
+            </if>
+            <if test="ew.text!=null and ew.text!=''">
+                AND text=#{ew.text}
+            </if>
+            <if test="ew.regId!=null and ew.regId!=''">
+                AND reg_id=#{ew.regId}
+            </if>
+            <if test="ew.enabled!=null">
+                AND enabled=#{ew.enabled}
+            </if>
+            <if test="ew.oauth2!=null">
+                AND oauth2=#{ew.oauth2}
+            </if>
+        </trim>
+    </sql>
+
+    <sql id="pkWhere">
+        WHERE id=#{pk}
+    </sql>
+
+    <insert id="insert" parameterType="com.cca.gateway.mode.domain.Gateway">
+        INSERT INTO gateway(id,uri,predicates,filters,text,reg_id,enabled,oauth2)
+        VALUES(
+        <trim suffixOverrides=",">
+            #{entity.id},
+            #{entity.uri},
+            #{entity.predicates},
+            #{entity.filters},
+            #{entity.text},
+            #{entity.regId},
+            #{entity.enabled},
+            #{entity.oauth2},
+        </trim>)
+    </insert>
+
+    <update id="updateByExample" parameterType="com.cca.gateway.mode.domain.Gateway">
+        UPDATE gateway
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="entity.id!=null">id=#{entity.id},</if>
+            <if test="entity.uri!=null">uri=#{entity.uri},</if>
+            <if test="entity.predicates!=null">predicates=#{entity.predicates},</if>
+            <if test="entity.filters!=null">filters=#{entity.filters},</if>
+            <if test="entity.text!=null">text=#{entity.text},</if>
+            <if test="entity.regId!=null">reg_id=#{entity.regId},</if>
+            <if test="entity.enabled!=null">enabled=#{entity.enabled},</if>
+            <if test="entity.oauth2!=null">oauth2=#{entity.oauth2},</if>
+        </trim>
+        <trim prefix="WHERE" prefixOverrides="AND|OR">
+            <if test="ew.id!=null">
+                AND id=#{ew.id}
+            </if>
+            <if test="ew.uri!=null">
+                AND uri=#{ew.uri}
+            </if>
+            <if test="ew.predicates!=null">
+                AND predicates=#{ew.predicates}
+            </if>
+            <if test="ew.filters!=null">
+                AND filters=#{ew.filters}
+            </if>
+            <if test="ew.text!=null">
+                AND text=#{ew.text}
+            </if>
+            <if test="ew.regId!=null">
+                AND reg_id=#{ew.regId}
+            </if>
+            <if test="ew.enabled!=null">
+                AND enabled=#{ew.enabled}
+            </if>
+            <if test="ew.oauth2!=null">
+                AND oauth2=#{ew.oauth2}
+            </if>
+        </trim>
+        LIMIT 1
+    </update>
+
+    <update id="updateByPk" parameterType="com.cca.gateway.mode.domain.Gateway">
+        UPDATE gateway
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="entity.id!=null">id=#{entity.id},</if>
+            <if test="entity.uri!=null">uri=#{entity.uri},</if>
+            <if test="entity.predicates!=null">predicates=#{entity.predicates},</if>
+            <if test="entity.filters!=null">filters=#{entity.filters},</if>
+            <if test="entity.text!=null">text=#{entity.text},</if>
+            <if test="entity.regId!=null">reg_id=#{entity.regId},</if>
+            <if test="entity.enabled!=null">enabled=#{entity.enabled},</if>
+            <if test="entity.oauth2!=null">oauth2=#{entity.oauth2},</if>
+        </trim>
+        <include refid="pkWhere"/>
+        LIMIT 1
+    </update>
+
+    <delete id="deleteByPk">
+        DELETE FROM gateway
+        <include refid="pkWhere"/>
+        LIMIT 1
+    </delete>
+
+    <delete id="deleteByExample">
+        DELETE FROM gateway
+        <include refid="equalWhere"/>
+    </delete>
+
+
+</mapper>
