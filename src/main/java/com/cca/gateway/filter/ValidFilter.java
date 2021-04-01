@@ -34,7 +34,7 @@ public class ValidFilter implements GlobalFilter, Ordered {
 
         if (bodyStr == null) {
             log.info("********** valid失败 ************");
-            DataBuffer dataBuffer = ResponseUtil.buildFailResponse(response, Result.failure(302, "valid失败"));
+            DataBuffer dataBuffer = ResponseUtil.buildResponse(response, Result.failure(302, "valid失败"));
             return response.writeWith(Mono.just(dataBuffer));
         } else {
             log.info("********** valid成功 ************");

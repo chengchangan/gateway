@@ -34,7 +34,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
         if (bodyStr == null) {
             log.info("********** 鉴权失败 ************");
-            DataBuffer dataBuffer = ResponseUtil.buildFailResponse(response, Result.failure(302, "鉴权失败"));
+            DataBuffer dataBuffer = ResponseUtil.buildResponse(response, Result.failure(302, "鉴权失败"));
             return response.writeWith(Mono.just(dataBuffer));
         } else {
             log.info("********** 鉴权成功 ************");

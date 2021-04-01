@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
  */
 public class ResponseUtil {
 
-    public static DataBuffer buildFailResponse(ServerHttpResponse response, Result<?> result) {
+    public static DataBuffer buildResponse(ServerHttpResponse response, Result<?> result) {
         response.setStatusCode(HttpStatus.OK);
         response.getHeaders().setContentType(MediaType.APPLICATION_JSON);
         String fastResult = JSON.toJSONString(result);
