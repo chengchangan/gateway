@@ -1,7 +1,7 @@
 package com.cca.gateway.utils;
 
 import com.alibaba.fastjson.JSON;
-import com.cca.mode.response.Result;
+import io.boncray.bean.mode.response.Result;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

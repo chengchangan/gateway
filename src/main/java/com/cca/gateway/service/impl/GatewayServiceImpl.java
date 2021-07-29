@@ -2,11 +2,11 @@ package com.cca.gateway.service.impl;
 
 
 import cn.hutool.core.collection.CollectionUtil;
-import com.cca.core.sequence.IdGenerator;
 import com.cca.gateway.dao.GatewayMapper;
 import com.cca.gateway.mode.domain.Gateway;
 import com.cca.gateway.mode.query.GatewayQuery;
 import com.cca.gateway.service.GatewayService;
+import io.boncray.core.sequence.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.event.RefreshRoutesEvent;

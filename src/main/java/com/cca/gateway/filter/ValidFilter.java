@@ -1,6 +1,6 @@
 package com.cca.gateway.filter;
 
-import com.cca.mode.response.Result;
+import io.boncray.bean.mode.response.Result;
 import com.cca.gateway.utils.RequestUtil;
 import com.cca.gateway.utils.ResponseUtil;
 import lombok.extern.slf4j.Slf4j;

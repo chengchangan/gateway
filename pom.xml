@@ -12,7 +12,7 @@
     <description>oms 网关</description>
 
     <parent>
-        <groupId>com.cca</groupId>
+        <groupId>io.boncray</groupId>
         <artifactId>super</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
@@ -44,12 +44,12 @@
         </dependency>
 
         <dependency>
-            <groupId>com.cca</groupId>
+            <groupId>io.boncray</groupId>
             <artifactId>bean</artifactId>
         </dependency>
 
         <dependency>
-            <groupId>com.cca</groupId>
+            <groupId>io.boncray</groupId>
             <artifactId>core</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
