@@ -14,16 +14,45 @@ import java.util.List;
  */
 public interface GatewayService {
 
+    /**
+     * 加载全部路由
+     */
+    void loadRouterDefinition();
+
+    /**
+     * 新增网关路由
+     */
     int insert(Gateway entity);
 
-    int updateByPk(Gateway entity);
+    /**
+     * 更新网关路由
+     */
+    int update(Gateway entity);
 
+    /**
+     * 删除网关路由
+     */
     int deleteByPk(Long pk);
 
+    /**
+     * 启用
+     */
+    boolean enable(Long pk);
+
+    /**
+     * 禁用
+     */
+    boolean disable(Long pk);
+
+    /**
+     * 网关单个查询
+     */
     Gateway getByKey(Long id);
 
+    /**
+     * 网关列表查询
+     */
     List<Gateway> listExample(GatewayQuery query);
 
-    void loadRouterDefinition();
 
 }

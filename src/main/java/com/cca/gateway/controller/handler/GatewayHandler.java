@@ -32,10 +32,6 @@ public class GatewayHandler {
     @Autowired
     private GatewayService gatewayService;
 
-    public Mono<ServerResponse> test(ServerRequest request) {
-        return ResponseUtil.convertToJson(Result.success("haha"));
-    }
-
     /**
      * 读取body参数，进行update
      */
@@ -44,7 +40,7 @@ public class GatewayHandler {
         return request.bodyToMono(Gateway.class)
                 .flatMap(gateway -> {
                     log.info("update :{}", gateway);
-                    int update = gatewayService.updateByPk(gateway);
+                    int update = gatewayService.update(gateway);
                     return ResponseUtil.convertToJson(Result.success(update));
                 });
     }
@@ -66,6 +62,21 @@ public class GatewayHandler {
         return ResponseUtil.convertToJson(Result.success(gatewayService.getByKey(Long.valueOf(id))));
     }
 
+    /**
+     * 启用
+     */
+    public Mono<ServerResponse> enable(ServerRequest request) {
+        String id = request.pathVariable("id");
+        return ResponseUtil.convertToJson(Result.success(gatewayService.enable(Long.valueOf(id))));
+    }
+
+    /**
+     * 禁用
+     */
+    public Mono<ServerResponse> disable(ServerRequest request) {
+        String id = request.pathVariable("id");
+        return ResponseUtil.convertToJson(Result.success(gatewayService.disable(Long.valueOf(id))));
+    }
 
     /**
      * 每隔1秒，返回一次数据
@@ -81,5 +92,6 @@ public class GatewayHandler {
                 .contentType(MediaType.TEXT_EVENT_STREAM).body(
                         Flux.interval(Duration.ofSeconds(1)).map(l -> LocalDateTime.now().toString()), String.class);
     }
+
 
 }

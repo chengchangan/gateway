@@ -29,14 +29,10 @@ public class GatewayController {
     @Autowired
     private GatewayService gatewayService;
 
-    @GetMapping("/test")
-    public Result<String> test() {
-        return Result.success("ok");
-    }
 
     @PostMapping("/update")
     public Mono<Result<Integer>> update(@RequestBody Mono<Gateway> mono) {
-        return mono.flatMap(gateway -> Mono.just(Result.success(gatewayService.updateByPk(gateway))));
+        return mono.flatMap(gateway -> Mono.just(Result.success(gatewayService.update(gateway))));
     }
 
     @PostMapping("/list")
@@ -53,5 +49,14 @@ public class GatewayController {
         return Mono.just(Result.success(gateway));
     }
 
+    @GetMapping("/enable/{id}")
+    public Mono<Result<Boolean>> enable(@PathVariable Long id) {
+        return Mono.just(Result.success(gatewayService.enable(id)));
+    }
+
+    @GetMapping("/disable/{id}")
+    public Mono<Result<Boolean>> disable(@PathVariable Long id) {
+        return Mono.just(Result.success(gatewayService.disable(id)));
+    }
 
 }

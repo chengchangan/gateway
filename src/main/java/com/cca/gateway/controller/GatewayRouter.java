@@ -24,17 +24,17 @@ public class GatewayRouter {
 
 
     /**
-     *
      * webFlux 函数式编程，路由处理
-     *
      */
     @Bean
     public RouterFunction<ServerResponse> gatewayRouterFunction() {
 
-        return RouterFunctions.route(RequestPredicates.GET("/list"), req -> gatewayHandler.list(req))
-                .andRoute(RequestPredicates.POST("/update"), req -> gatewayHandler.update(req))
+        return RouterFunctions.route(RequestPredicates.POST("/list"), req -> gatewayHandler.list(req))
                 .andRoute(RequestPredicates.GET("/get/{id}"), req -> gatewayHandler.get(req))
-                .andRoute(RequestPredicates.GET("/test"), req -> gatewayHandler.test(req))
+                .andRoute(RequestPredicates.POST("/update"), req -> gatewayHandler.update(req))
+                .andRoute(RequestPredicates.GET("/enable/{id}"), req -> gatewayHandler.enable(req))
+                .andRoute(RequestPredicates.GET("/disable/{id}"), req -> gatewayHandler.disable(req))
+                // 下面测试示例
                 .andRoute(RequestPredicates.GET("/interval"), req -> gatewayHandler.sendTimePerSec(req));
     }
 
