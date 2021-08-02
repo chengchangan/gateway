@@ -7,6 +7,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.cloud.gateway.filter.FilterDefinition;
 import org.springframework.cloud.gateway.handler.predicate.PredicateDefinition;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,7 +19,7 @@ import java.util.List;
  */
 @Data
 @EqualsAndHashCode()
-public class Gateway {
+public class Gateway implements Serializable {
 
     @ApiModelProperty(value = "")
     private Long id;

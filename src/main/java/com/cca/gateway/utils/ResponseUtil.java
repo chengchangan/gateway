@@ -6,6 +6,8 @@ import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.web.reactive.function.server.ServerResponse;
+import reactor.core.publisher.Mono;
 
 import java.nio.charset.StandardCharsets;
 
@@ -23,5 +25,9 @@ public class ResponseUtil {
         return response.bufferFactory().allocateBuffer().write(fastResult.getBytes(StandardCharsets.UTF_8));
     }
 
+
+    public static <T> Mono<ServerResponse> convertToJson(T data) {
+        return ServerResponse.ok().contentType(MediaType.APPLICATION_JSON).body(Mono.just(data), data.getClass());
+    }
 
 }
