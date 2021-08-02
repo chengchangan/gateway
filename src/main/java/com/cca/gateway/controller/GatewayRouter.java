@@ -23,6 +23,11 @@ public class GatewayRouter {
     private GatewayHandler gatewayHandler;
 
 
+    /**
+     *
+     * webFlux 函数式编程，路由处理
+     *
+     */
     @Bean
     public RouterFunction<ServerResponse> gatewayRouterFunction() {
 

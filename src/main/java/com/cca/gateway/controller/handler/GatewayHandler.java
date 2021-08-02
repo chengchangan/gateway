@@ -19,6 +19,8 @@ import java.time.LocalDateTime;
 
 
 /**
+ * webFlux 函数式编程，web处理器
+ *
  * @author cca
  * @version 1.0
  * @date 2021/8/2 14:47
@@ -45,7 +47,6 @@ public class GatewayHandler {
                     int update = gatewayService.updateByPk(gateway);
                     return ResponseUtil.convertToJson(Result.success(update));
                 });
-
     }
 
     /**
