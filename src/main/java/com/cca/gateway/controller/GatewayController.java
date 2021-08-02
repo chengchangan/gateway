@@ -5,12 +5,10 @@ package com.cca.gateway.controller;
 import com.cca.gateway.mode.domain.Gateway;
 import com.cca.gateway.mode.query.GatewayQuery;
 import com.cca.gateway.service.GatewayService;
-import com.cca.gateway.utils.ResponseUtil;
 import io.boncray.bean.mode.response.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.server.ServerResponse;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
@@ -37,26 +35,23 @@ public class GatewayController {
     }
 
     @PostMapping("/update")
-    public Mono<ServerResponse> update(@RequestBody Mono<Gateway> flux) {
-        return flux.flatMap(gateway -> {
-            log.info("rest update :{}", gateway);
-            int i = gatewayService.updateByPk(gateway);
-            return ResponseUtil.convertToJson(null);
+    public Mono<Result<Integer>> update(@RequestBody Mono<Gateway> mono) {
+        return mono.flatMap(gateway -> Mono.just(Result.success(gatewayService.updateByPk(gateway))));
+    }
+
+    @PostMapping("/list")
+    public Mono<Result<List<Gateway>>> list(@RequestBody Mono<GatewayQuery> mono) {
+        return mono.flatMap(query -> {
+            List<Gateway> list = gatewayService.listExample(query);
+            return Mono.just(Result.success(list));
         });
     }
 
     @GetMapping("/get/{id}")
-    public Mono<ServerResponse> get(@PathVariable Long id) {
+    public Mono<Result<Gateway>> get(@PathVariable Long id) {
         Gateway gateway = gatewayService.getByKey(id);
-        return ResponseUtil.convertToJson(Result.success(gateway));
+        return Mono.just(Result.success(gateway));
     }
 
-    @GetMapping("/list")
-    public Mono<ServerResponse> list(@RequestBody Mono<GatewayQuery> mono) {
-        return mono.flatMap(query -> {
-            List<Gateway> list = gatewayService.listExample(query);
-            return ResponseUtil.convertToJson(Result.success(list));
-        });
-    }
 
 }
