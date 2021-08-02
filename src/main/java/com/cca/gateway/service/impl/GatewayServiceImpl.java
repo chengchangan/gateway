@@ -55,7 +55,7 @@ public class GatewayServiceImpl implements GatewayService {
         if (CollectionUtil.isEmpty(allGateway)) {
             return;
         }
-        allGateway.forEach(this::loadRouterDefinition);
+        allGateway.stream().filter(x -> BooleanUtil.isTrue(x.getEnabled())).forEach(this::loadRouterDefinition);
     }
 
     @Override
