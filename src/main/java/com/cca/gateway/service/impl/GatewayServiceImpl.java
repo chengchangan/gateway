@@ -69,10 +69,10 @@ public class GatewayServiceImpl implements GatewayService {
     }
 
     @Override
-    public int update(Gateway entity) {
-        this.updateByPk(entity);
+    public boolean update(Gateway entity) {
+        int update = this.updateByPk(entity);
         this.loadRouterDefinition(entity);
-        return 0;
+        return update > 0;
     }
 
 

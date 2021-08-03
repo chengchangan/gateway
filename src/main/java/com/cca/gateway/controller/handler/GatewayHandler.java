@@ -40,8 +40,7 @@ public class GatewayHandler {
         return request.bodyToMono(Gateway.class)
                 .flatMap(gateway -> {
                     log.info("update :{}", gateway);
-                    int update = gatewayService.update(gateway);
-                    return ResponseUtil.convertToJson(Result.success(update));
+                    return ResponseUtil.convertToJson(Result.success(gatewayService.update(gateway)));
                 });
     }
 

@@ -27,7 +27,7 @@ public interface GatewayService {
     /**
      * 更新网关路由
      */
-    int update(Gateway entity);
+    boolean update(Gateway entity);
 
     /**
      * 删除网关路由

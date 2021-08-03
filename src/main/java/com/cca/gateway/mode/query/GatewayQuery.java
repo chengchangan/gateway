@@ -16,28 +16,28 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode()
 public class GatewayQuery {
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "目标服务")
     private String uri;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "断言-匹配规则")
     private String predicates;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "过滤-替换目标访问地址")
     private String filters;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "服务名称")
     private String text;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "服务id")
     private String regId;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "启用")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "授权")
     private Boolean oauth2;
 
 

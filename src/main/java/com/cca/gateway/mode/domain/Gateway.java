@@ -21,10 +21,10 @@ import java.util.List;
 @EqualsAndHashCode()
 public class Gateway implements Serializable {
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "主键")
     private Long id;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "目标服务")
     private String uri;
 
     /**
@@ -40,7 +40,7 @@ public class Gateway implements Serializable {
      * 例如：http://localhost:8080/product/spu/getByid
      *
      */
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "断言-匹配规则")
     private String predicates;
 
 
@@ -59,19 +59,19 @@ public class Gateway implements Serializable {
      *      转发后：lb://目标服务/spu/getByid
      *
      */
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "过滤-替换目标访问地址")
     private String filters;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "服务名称")
     private String text;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "服务id")
     private String regId;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "启用")
     private Boolean enabled;
 
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value = "授权")
     private Boolean oauth2;
 
     public List<PredicateDefinition> getPredicateDefinition() {

@@ -31,7 +31,7 @@ public class GatewayController {
 
 
     @PostMapping("/update")
-    public Mono<Result<Integer>> update(@RequestBody Mono<Gateway> mono) {
+    public Mono<Result<Boolean>> update(@RequestBody Mono<Gateway> mono) {
         return mono.flatMap(gateway -> Mono.just(Result.success(gatewayService.update(gateway))));
     }
 
