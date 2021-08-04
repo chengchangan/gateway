@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
-import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.stereotype.Component;
@@ -34,8 +33,7 @@ public class AuthenticationFilter implements GlobalFilter, Ordered {
 
         if (bodyStr == null) {
             log.info("********** 鉴权失败 ************");
-            DataBuffer dataBuffer = ResponseUtil.buildResponse(response, Result.failure(302, "鉴权失败"));
-            return response.writeWith(Mono.just(dataBuffer));
+            return ResponseUtil.convertToResponse(response, Result.failure(302, "鉴权失败"));
         } else {
             log.info("********** 鉴权成功 ************");
             log.info("body：{}", bodyStr);

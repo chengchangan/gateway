@@ -40,7 +40,7 @@ public class GatewayHandler {
         return request.bodyToMono(Gateway.class)
                 .flatMap(gateway -> {
                     log.info("update :{}", gateway);
-                    return ResponseUtil.convertToJson(Result.success(gatewayService.update(gateway)));
+                    return ResponseUtil.convertToResponse(Result.success(gatewayService.update(gateway)));
                 });
     }
 
@@ -50,7 +50,7 @@ public class GatewayHandler {
     public Mono<ServerResponse> list(ServerRequest request) {
         // bodyToMono.flatMap 方式读取 body
         return request.bodyToMono(GatewayQuery.class)
-                .flatMap(query -> ResponseUtil.convertToJson(Result.success(gatewayService.listExample(query))));
+                .flatMap(query -> ResponseUtil.convertToResponse(Result.success(gatewayService.listExample(query))));
     }
 
     /**
@@ -58,7 +58,7 @@ public class GatewayHandler {
      */
     public Mono<ServerResponse> get(ServerRequest request) {
         String id = request.pathVariable("id");
-        return ResponseUtil.convertToJson(Result.success(gatewayService.getByKey(Long.valueOf(id))));
+        return ResponseUtil.convertToResponse(Result.success(gatewayService.getByKey(Long.valueOf(id))));
     }
 
     /**
@@ -66,7 +66,7 @@ public class GatewayHandler {
      */
     public Mono<ServerResponse> enable(ServerRequest request) {
         String id = request.pathVariable("id");
-        return ResponseUtil.convertToJson(Result.success(gatewayService.enable(Long.valueOf(id))));
+        return ResponseUtil.convertToResponse(Result.success(gatewayService.enable(Long.valueOf(id))));
     }
 
     /**
@@ -74,7 +74,7 @@ public class GatewayHandler {
      */
     public Mono<ServerResponse> disable(ServerRequest request) {
         String id = request.pathVariable("id");
-        return ResponseUtil.convertToJson(Result.success(gatewayService.disable(Long.valueOf(id))));
+        return ResponseUtil.convertToResponse(Result.success(gatewayService.disable(Long.valueOf(id))));
     }
 
     /**
