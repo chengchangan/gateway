@@ -15,6 +15,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+import javax.annotation.Resource;
+
 /**
  * 改写请求头信息 filter
  *
@@ -25,8 +27,8 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class RewriteRequestHeaderFilter implements GlobalFilter, Ordered {
 
-    @Autowired
-    private IdGenerator idGenerator;
+    @Resource
+    private IdGenerator normalIdGenerator;
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
