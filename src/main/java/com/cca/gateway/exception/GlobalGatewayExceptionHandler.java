@@ -1,9 +1,11 @@
 package com.cca.gateway.exception;
 
 import cn.hutool.core.lang.Assert;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
 import com.cca.gateway.utils.ResponseUtil;
 import io.boncray.bean.constants.LogConstant;
+import io.boncray.bean.mode.log.TrackMetric;
 import io.boncray.bean.mode.response.Result;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
@@ -19,7 +21,9 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -99,10 +103,12 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
      * 封装返回结果对象
      */
     protected Result<String> parseResponseData(ServerWebExchange exchange, Throwable throwable) {
-        Optional<String> trackId = Optional.ofNullable(exchange.getRequest().getHeaders().get(LogConstant.TRACK_ID))
-                .orElseGet(ArrayList::new)
-                .stream()
-                .findFirst();
+        Long requestId = -1L;
+        String trackMetric = exchange.getRequest().getHeaders().getFirst(LogConstant.TRACK_METRIC);
+        if (StrUtil.isNotBlank(trackMetric)) {
+            requestId = JSONUtil.toBean(trackMetric, TrackMetric.class).getCurrentTrackId();
+        }
+
         // 根据异常,处理返回结果
         int code = 500;
         String msg;
@@ -119,7 +125,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
         }
 
         Result<String> result = Result.failure(code, msg);
-        result.setRequestId(trackId.map(Long::parseLong).orElse(-1L));
+        result.setRequestId(requestId);
         return result;
     }
 }
