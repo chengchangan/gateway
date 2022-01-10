@@ -55,6 +55,12 @@
             </exclusions>
         </dependency>
 
+        <!-- 持久化层 -->
+        <dependency>
+            <groupId>io.boncray</groupId>
+            <artifactId>cmdb</artifactId>
+        </dependency>
+
     </dependencies>
 
 
