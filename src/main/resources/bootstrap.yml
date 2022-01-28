@@ -2,7 +2,7 @@ spring:
   profiles:
     active: dev
   application:
-    name: oms-gateway
+    name: common-gateway
 
 ---
 spring:
@@ -12,8 +12,8 @@ spring:
     nacos:
       config:
         server-addr: 101.34.35.72:8848 #服务配置中心地址
-        namespace: 907b6e96-4668-4d6f-8f26-eeda563d7616
-        group: GATEWAY_GROUP
+        namespace: 06a75c84-f5d4-4f2b-b849-7b4349d0b58f
+        group: DEFAULT_GROUP
         file-extension: yaml
         extension-configs:
           - data-id: common.yaml

@@ -5,7 +5,6 @@ import com.cca.gateway.utils.ResponseUtil;
 import io.boncray.bean.mode.response.Result;
 import io.boncray.core.sequence.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
@@ -48,9 +47,7 @@ public class RewriteRequestHeaderFilter implements GlobalFilter, Ordered {
     }
 
     /**
-     *
      * 增加请求头参数
-     *
      */
     private ServerWebExchange rewriteRequest(ServerWebExchange exchange) {
 //        Consumer<HttpHeaders> httpHeaders = httpHeader -> httpHeader.set(LogConstant.TRACK_ID, String.valueOf(idGenerator.next()));
