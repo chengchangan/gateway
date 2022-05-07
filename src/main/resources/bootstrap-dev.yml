@@ -12,16 +12,6 @@ spring:
           - data-id: common.yaml
             group: DEFAULT_GROUP
 
-    gateway:
-      # gateway的全局跨域请求配置
-      globalcors:
-        corsConfigurations:
-          '[/**]':
-            allowedHeaders: "*"
-            allowedOrigins: "*"
-            allowCredentials: true
-            allowedMethods: "*"
-
 
 #    gateway:
 #      discovery:
