@@ -53,7 +53,7 @@ public class GlobalGatewayExceptionHandler implements ErrorWebExceptionHandler {
 
     @Override
     public Mono<Void> handle(ServerWebExchange exchange, Throwable throwable) {
-        log.info("global exception:{} \n", exchange.getRequest().getPath(), throwable);
+        log.info("global exception:{} ", exchange.getRequest().getPath(), throwable);
         if (exchange.getResponse().isCommitted()) {
             return Mono.error(throwable);
         }

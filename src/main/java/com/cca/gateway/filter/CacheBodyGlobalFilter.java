@@ -14,6 +14,8 @@ import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
+ * 最高优先级，缓存请求body信息，未后续提供支持
+ *
  * @author cca
  * @version 1.0
  * @date 2021/3/4 14:37
@@ -23,7 +25,7 @@ import reactor.core.publisher.Mono;
 public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (exchange.getRequest().getHeaders().getContentType() == null) {
+        if (exchange.getRequest().getHeaders().getContentLength() == 0) {
             return chain.filter(exchange);
         } else {
             return DataBufferUtils.join(exchange.getRequest().getBody())

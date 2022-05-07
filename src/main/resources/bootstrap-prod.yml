@@ -1,17 +1,10 @@
 spring:
-  profiles:
-    active: dev
   application:
     name: common-gateway
-
----
-spring:
-  profiles:
-    active: dev
   cloud:
     nacos:
       config:
-        server-addr: 101.34.35.72:8848 #服务配置中心地址
+        server-addr: 39.108.97.141:8848 #服务配置中心地址
         namespace: 06a75c84-f5d4-4f2b-b849-7b4349d0b58f
         group: DEFAULT_GROUP
         file-extension: yaml

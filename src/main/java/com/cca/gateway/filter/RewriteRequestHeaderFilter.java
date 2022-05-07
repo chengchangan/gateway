@@ -34,15 +34,9 @@ public class RewriteRequestHeaderFilter implements GlobalFilter, Ordered {
         ServerHttpRequest serverHttpRequest = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
-        // todo 测试代码
-        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
-        if (bodyStr == null) {
-            log.info("********** valid失败 ************");
-            return ResponseUtil.convertToResponse(response, Result.failure(302, "valid失败"));
-        } else {
-            log.info("********** valid成功 ************");
-            log.info("body：{}", bodyStr);
-        }
+        // todo 测试代码  此处获取了body，随机性报错
+//        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
+//        log.info("request body：{}", bodyStr);
         return chain.filter(rewriteRequest(exchange));
     }
 
