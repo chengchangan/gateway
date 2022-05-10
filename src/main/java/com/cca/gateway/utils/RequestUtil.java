@@ -1,9 +1,12 @@
 package com.cca.gateway.utils;
 
+import io.netty.buffer.ByteBufAllocator;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.core.io.buffer.DataBufferUtils;
+import org.springframework.core.io.buffer.NettyDataBufferFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
+import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
 import reactor.core.publisher.Flux;
 
 import java.nio.CharBuffer;
@@ -65,6 +68,35 @@ public class RequestUtil {
             return null;
         }
 
+    }
+
+    // 构建新的request对象 ----stringBuffer方法是上面的代码
+
+    /**
+     * 读取body后重新包装request
+     */
+    public static ServerHttpRequest wrapperNewRequest(String body, ServerHttpRequest request) {
+        DataBuffer bodyDataBuffer = stringBuffer(body);
+        Flux<DataBuffer> bodyFlux = Flux.just(bodyDataBuffer);
+
+        request = new ServerHttpRequestDecorator(request) {
+            @Override
+            public Flux<DataBuffer> getBody() {
+                return bodyFlux;
+            }
+        };
+        return request;
+    }
+
+
+    //先将字符串写到字节缓冲
+    private static DataBuffer stringBuffer(String value) {
+        byte[] bytes = value.getBytes(StandardCharsets.UTF_8);
+
+        NettyDataBufferFactory nettyDataBufferFactory = new NettyDataBufferFactory(ByteBufAllocator.DEFAULT);
+        DataBuffer buffer = nettyDataBufferFactory.allocateBuffer(bytes.length);
+        buffer.write(bytes);
+        return buffer;
     }
 
 

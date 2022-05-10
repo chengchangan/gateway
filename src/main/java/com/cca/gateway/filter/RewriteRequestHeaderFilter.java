@@ -1,8 +1,6 @@
 package com.cca.gateway.filter;
 
 import com.cca.gateway.utils.RequestUtil;
-import com.cca.gateway.utils.ResponseUtil;
-import io.boncray.bean.mode.response.Result;
 import io.boncray.core.sequence.IdGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -34,10 +32,13 @@ public class RewriteRequestHeaderFilter implements GlobalFilter, Ordered {
         ServerHttpRequest serverHttpRequest = exchange.getRequest();
         ServerHttpResponse response = exchange.getResponse();
 
-        // todo 测试代码  此处获取了body，随机性报错
-//        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
-//        log.info("request body：{}", bodyStr);
-        return chain.filter(rewriteRequest(exchange));
+        // todo 测试代码  此处获取了body
+        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
+        log.info("request body：{}", bodyStr);
+
+        // 将body重新包装到request
+        ServerHttpRequest httpRequest = RequestUtil.wrapperNewRequest(bodyStr, serverHttpRequest);
+        return chain.filter(exchange.mutate().request(httpRequest).build());
     }
 
     /**
