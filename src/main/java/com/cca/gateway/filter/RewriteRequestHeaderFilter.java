@@ -33,12 +33,13 @@ public class RewriteRequestHeaderFilter implements GlobalFilter, Ordered {
         ServerHttpResponse response = exchange.getResponse();
 
         // todo 测试代码  此处获取了body
-        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
-        log.info("request body：{}", bodyStr);
-
-        // 将body重新包装到request
-        ServerHttpRequest httpRequest = RequestUtil.wrapperNewRequest(bodyStr, serverHttpRequest);
-        return chain.filter(exchange.mutate().request(httpRequest).build());
+//        String bodyStr = RequestUtil.resolveBodyFromRequest(serverHttpRequest);
+//        log.info("request body：{}", bodyStr);
+//
+//         将body重新包装到request
+//        ServerHttpRequest httpRequest = RequestUtil.wrapperNewRequest(bodyStr, serverHttpRequest);
+//        return chain.filter(exchange.mutate().request(httpRequest).build());
+        return chain.filter(exchange);
     }
 
     /**
