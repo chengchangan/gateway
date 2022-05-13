@@ -7,6 +7,7 @@ import org.springframework.core.io.buffer.NettyDataBufferFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpRequestDecorator;
+import org.springframework.util.StringUtils;
 import reactor.core.publisher.Flux;
 
 import java.nio.CharBuffer;
@@ -76,6 +77,9 @@ public class RequestUtil {
      * 读取body后重新包装request
      */
     public static ServerHttpRequest wrapperNewRequest(String body, ServerHttpRequest request) {
+        if (StringUtils.isEmpty(body)) {
+            return request;
+        }
         DataBuffer bodyDataBuffer = stringBuffer(body);
         Flux<DataBuffer> bodyFlux = Flux.just(bodyDataBuffer);
 

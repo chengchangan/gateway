@@ -25,7 +25,7 @@ import reactor.core.publisher.Mono;
 public class CacheBodyGlobalFilter implements Ordered, GlobalFilter {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (exchange.getRequest().getHeaders().getContentLength() == 0) {
+        if (exchange.getRequest().getHeaders().getContentLength() <= 0) {
             return chain.filter(exchange);
         } else {
             return DataBufferUtils.join(exchange.getRequest().getBody())
